@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Linking, ImageBackground } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Linking, ImageBackground, Image } from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -31,30 +31,78 @@ const SERVICES = [
   },
 ];
 
-const DEMOS = [
+const PROJECTS = [
+  {
+    title: 'Persianas Santander',
+    category: 'CASO REAL',
+    badge: true,
+    desc: 'Web profesional con formulario de contacto, galería de trabajos y posicionamiento local SEO.',
+    features: ['Diseño responsive', '3 días de entrega', 'SEO local incluido'],
+    color: '#f59e0b',
+    gradientColors: ['#f59e0b', '#ea580c'],
+    logo: require('../../assets/persianassantander.png'),
+    logoWhite: false,
+    url: 'https://persianassantander.es',
+    metrics: [
+      { label: 'Valoración media', value: '3★' },
+      { label: 'Días de entrega', value: '3' },
+      { label: 'Online', value: '100%' },
+    ],
+    external: true,
+  },
   {
     title: 'Fashion IA',
     category: 'E-commerce + IA',
-    desc: 'Tienda online con recomendaciones automáticas por IA y panel de gestión.',
+    badge: false,
+    desc: 'Tienda online con recomendaciones automáticas por IA y panel de gestión integrado.',
+    features: ['Recomendaciones IA', 'Panel admin', 'Analytics avanzado'],
     color: '#10b981',
-    metrics: ['+40% ventas', '+65% retención', '0.8s carga'],
+    gradientColors: ['#10b981', '#06b6d4'],
+    logo: require('../../assets/fashion-ia.png'),
+    logoWhite: false,
     url: 'https://mindbride.net/portfolio/ecommerce',
+    metrics: [
+      { label: 'Ventas', value: '+40%' },
+      { label: 'Retención', value: '+65%' },
+      { label: 'Carga', value: '0.8s' },
+    ],
+    external: false,
   },
   {
     title: 'SaaS Dashboard',
     category: 'Panel SaaS',
-    desc: 'Dashboard analítico en tiempo real con +10.000 usuarios activos.',
+    badge: false,
+    desc: 'Dashboard analítico en tiempo real con +10.000 usuarios activos simultáneos.',
+    features: ['Tiempo real', '99.9% uptime', '50M eventos/mes'],
     color: '#3b82f6',
-    metrics: ['10.000+ users', '99.9% uptime', '50M eventos'],
+    gradientColors: ['#2563eb', '#06b6d4'],
+    logo: require('../../assets/saaslogo.png'),
+    logoWhite: false,
     url: 'https://mindbride.net/portfolio/dashboard',
+    metrics: [
+      { label: 'Usuarios', value: '10K+' },
+      { label: 'Uptime', value: '99.9%' },
+      { label: 'Eventos', value: '50M' },
+    ],
+    external: false,
   },
   {
     title: 'AdLaunch Studio',
     category: 'Landing Page',
-    desc: 'Landing de conversión con IA integrada para generación de leads.',
+    badge: false,
+    desc: 'Landing de alta conversión con IA integrada para generación y cualificación de leads.',
+    features: ['CVR 12.5%', 'Leads +200%', 'CAC -35%'],
     color: '#8b5cf6',
-    metrics: ['12.5% CVR', '-35% CAC', '+200% leads'],
+    gradientColors: ['#3b82f6', '#8b5cf6'],
+    logo: require('../../assets/adlaunch-studio.png'),
+    logoWhite: false,
     url: 'https://mindbride.net/portfolio/landing',
+    metrics: [
+      { label: 'Conversión', value: '12.5%' },
+      { label: 'CAC', value: '-35%' },
+      { label: 'Leads', value: '+200%' },
+    ],
+    external: false,
   },
 ];
 
@@ -64,7 +112,6 @@ const PLANS = [
     setup: '990',
     monthly: '79',
     desc: 'Para freelancers y pequeños negocios',
-    color: '#10b981',
     features: ['Landing page', 'Formulario de contacto', 'WhatsApp integrado', '1 automatización', 'Hosting cloud', 'IA: 500 consultas/mes'],
     popular: false,
   },
@@ -73,7 +120,6 @@ const PLANS = [
     setup: '2.490',
     monthly: '149',
     desc: 'Para PYMEs en crecimiento',
-    color: '#10b981',
     features: ['Web multipágina + panel', 'Integración CRM', '3 automatizaciones', 'Chatbot IA', 'Monitorización 24/7', 'IA: 2.000 consultas/mes'],
     popular: true,
   },
@@ -82,7 +128,6 @@ const PLANS = [
     setup: '4.990+',
     monthly: '299',
     desc: 'Para empresas con volumen',
-    color: '#10b981',
     features: ['Web custom + cloud completo', 'Automatizaciones ilimitadas', 'IA en todos los procesos', 'Integraciones ERP/CRM', 'Soporte prioritario', 'IA: 5.000 consultas/mes'],
     popular: false,
   },
@@ -96,9 +141,9 @@ export default function Home() {
 
       {/* Hero */}
       <ImageBackground
-        source={require('../../assets/splash-icon.png')}
+        source={require('../../assets/office-background.jpg')}
         style={{ paddingTop: insets.top + 24, paddingBottom: 40 }}
-        imageStyle={{ opacity: 0.07, borderBottomLeftRadius: 32, borderBottomRightRadius: 32 }}
+        imageStyle={{ opacity: 0.18, borderBottomLeftRadius: 32, borderBottomRightRadius: 32 }}
         resizeMode="cover"
       >
         {/* Top bar */}
@@ -151,7 +196,7 @@ export default function Home() {
         <SectionHeader title="¿Qué hacemos?" subtitle="Tres áreas, una solución completa" />
         {SERVICES.map((s, i) => (
           <View key={i} style={[styles.serviceCard, { borderLeftColor: s.color }]}>
-            <View style={[styles.serviceIconWrap, { backgroundColor: s.color + '15' }]}>
+            <View style={[styles.serviceIconWrap, { backgroundColor: s.color + '20' }]}>
               <Ionicons name={s.icon} size={22} color={s.color} />
             </View>
             <View style={{ flex: 1 }}>
@@ -162,25 +207,54 @@ export default function Home() {
         ))}
       </View>
 
-      {/* Demos */}
+      {/* Portfolio */}
       <View style={styles.section}>
         <SectionHeader title="Proyectos reales" subtitle="Resultados medibles desde el día 1" />
-        {DEMOS.map((demo, i) => (
-          <TouchableOpacity key={i} style={styles.demoCard} onPress={() => Linking.openURL(demo.url)} activeOpacity={0.85}>
-            <View style={[styles.demoAccent, { backgroundColor: demo.color }]} />
-            <View style={styles.demoContent}>
-              <View style={styles.demoCategoryRow}>
-                <View style={[styles.demoCategoryBadge, { backgroundColor: demo.color + '18', borderColor: demo.color + '35' }]}>
-                  <Text style={[styles.demoCategoryText, { color: demo.color }]}>{demo.category}</Text>
+        {PROJECTS.map((p, i) => (
+          <TouchableOpacity
+            key={i}
+            style={styles.projectCard}
+            onPress={() => Linking.openURL(p.url)}
+            activeOpacity={0.88}
+          >
+            {/* Gradient header with logo */}
+            <View style={[styles.projectHeader, { backgroundColor: p.gradientColors[0] }]}>
+              <View style={styles.projectHeaderOverlay}>
+                <View style={styles.projectLogoWrap}>
+                  <Image source={p.logo} style={styles.projectLogo} resizeMode="contain" />
                 </View>
-                <Ionicons name="arrow-forward" size={14} color={demo.color} />
               </View>
-              <Text style={styles.demoTitle}>{demo.title}</Text>
-              <Text style={styles.demoDesc}>{demo.desc}</Text>
-              <View style={styles.demoMetrics}>
-                {demo.metrics.map((m, j) => (
-                  <View key={j} style={[styles.demoMetric, { borderColor: demo.color + '30' }]}>
-                    <Text style={[styles.demoMetricText, { color: demo.color }]}>{m}</Text>
+              {p.badge && (
+                <View style={styles.casoBadge}>
+                  <Text style={styles.casoBadgeText}>✓ CASO REAL</Text>
+                </View>
+              )}
+            </View>
+
+            {/* Content */}
+            <View style={styles.projectBody}>
+              <View style={[styles.categoryBadge, { backgroundColor: p.color + '18', borderColor: p.color + '40' }]}>
+                <Text style={[styles.categoryText, { color: p.color }]}>{p.category}</Text>
+              </View>
+              <Text style={styles.projectTitle}>{p.title}</Text>
+              <Text style={styles.projectDesc}>{p.desc}</Text>
+
+              {/* Features */}
+              <View style={styles.featureList}>
+                {p.features.map((f, j) => (
+                  <View key={j} style={styles.featureRow}>
+                    <Ionicons name="checkmark-circle" size={14} color="#10b981" />
+                    <Text style={styles.featureText}>{f}</Text>
+                  </View>
+                ))}
+              </View>
+
+              {/* Metrics */}
+              <View style={styles.metricsRow}>
+                {p.metrics.map((m, j) => (
+                  <View key={j} style={styles.metricBox}>
+                    <Text style={[styles.metricValue, { color: p.color }]}>{m.value}</Text>
+                    <Text style={styles.metricLabel}>{m.label}</Text>
                   </View>
                 ))}
               </View>
@@ -215,7 +289,7 @@ export default function Home() {
               <Text style={styles.planMonthlyLabel}>/mes</Text>
             </View>
             <View style={styles.planDivider} />
-            <View style={styles.featureList}>
+            <View style={styles.planFeatureList}>
               {plan.features.map((f, j) => (
                 <View key={j} style={styles.featureRow}>
                   <Ionicons name="checkmark-circle" size={15} color="#10b981" />
@@ -281,7 +355,6 @@ function SectionHeader({ title, subtitle }: { title: string; subtitle: string })
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#080f1e' },
 
-  // Top bar
   topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, marginBottom: 28 },
   logoBadge: {},
   logoText: { color: '#f8fafc', fontSize: 18, fontWeight: '800' },
@@ -290,53 +363,57 @@ const styles = StyleSheet.create({
   onlineDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: '#10b981' },
   chatBadgeText: { color: '#10b981', fontSize: 12, fontWeight: '700' },
 
-  // Hero
   hero: { paddingHorizontal: 20 },
   heroBadge: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: '#10b98112', borderWidth: 1, borderColor: '#10b98125', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6, alignSelf: 'flex-start', marginBottom: 18 },
   heroBadgeText: { color: '#10b981', fontSize: 12, fontWeight: '700' },
   heroTitle: { color: '#f8fafc', fontSize: 30, fontWeight: '800', lineHeight: 38, marginBottom: 14, letterSpacing: -0.5 },
-  heroSub: { color: '#64748b', fontSize: 15, lineHeight: 25, marginBottom: 28 },
+  heroSub: { color: '#94a3b8', fontSize: 15, lineHeight: 25, marginBottom: 28 },
   heroButtons: { flexDirection: 'row', gap: 10, marginBottom: 32 },
   btnPrimary: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: '#10b981', borderRadius: 12, paddingVertical: 13, paddingHorizontal: 18, shadowColor: '#10b981', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 12, elevation: 8 },
   btnPrimaryText: { color: '#fff', fontWeight: '700', fontSize: 14 },
   btnSecondary: { flexDirection: 'row', alignItems: 'center', gap: 6, borderWidth: 1, borderColor: '#1e293b', borderRadius: 12, paddingVertical: 13, paddingHorizontal: 16, justifyContent: 'center', backgroundColor: '#0f172a' },
   btnSecondaryText: { color: '#94a3b8', fontWeight: '600', fontSize: 14 },
 
-  // Stats
   statsRow: { flexDirection: 'row', backgroundColor: '#0f172a', borderRadius: 14, borderWidth: 1, borderColor: '#1e293b', overflow: 'hidden' },
   statItem: { flex: 1, alignItems: 'center', paddingVertical: 14 },
   statBorder: { borderRightWidth: 1, borderRightColor: '#1e293b' },
   statValue: { color: '#10b981', fontSize: 16, fontWeight: '800' },
   statLabel: { color: '#475569', fontSize: 10, fontWeight: '600', marginTop: 2 },
 
-  // Sections
   section: { paddingHorizontal: 20, paddingTop: 32, gap: 12 },
   sectionHeader: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 4 },
   sectionAccent: { width: 4, height: 36, backgroundColor: '#10b981', borderRadius: 2 },
   sectionTitle: { color: '#f8fafc', fontSize: 20, fontWeight: '800', letterSpacing: -0.3 },
   sectionSubtitle: { color: '#475569', fontSize: 13, marginTop: 2 },
 
-  // Services
   serviceCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 14, backgroundColor: '#0f172a', borderRadius: 14, padding: 16, borderWidth: 1, borderColor: '#1e293b', borderLeftWidth: 3 },
   serviceIconWrap: { width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   serviceTitle: { color: '#f8fafc', fontSize: 15, fontWeight: '700', marginBottom: 5 },
   serviceDesc: { color: '#475569', fontSize: 13, lineHeight: 20 },
 
-  // Demos
-  demoCard: { backgroundColor: '#0f172a', borderRadius: 16, borderWidth: 1, borderColor: '#1e293b', overflow: 'hidden' },
-  demoAccent: { height: 4, width: '100%' },
-  demoContent: { padding: 16, gap: 8 },
-  demoCategoryRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  demoCategoryBadge: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4 },
-  demoCategoryText: { fontSize: 11, fontWeight: '700' },
-  demoTitle: { color: '#f8fafc', fontSize: 18, fontWeight: '800', letterSpacing: -0.3 },
-  demoDesc: { color: '#475569', fontSize: 13, lineHeight: 20 },
-  demoMetrics: { flexDirection: 'row', gap: 8, flexWrap: 'wrap' },
-  demoMetric: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5 },
-  demoMetricText: { fontSize: 12, fontWeight: '700' },
+  // Project cards
+  projectCard: { backgroundColor: '#0f172a', borderRadius: 20, borderWidth: 1, borderColor: '#1e293b', overflow: 'hidden', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 12, elevation: 6 },
+  projectHeader: { height: 160, justifyContent: 'center', alignItems: 'center', position: 'relative' },
+  projectHeaderOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.15)', justifyContent: 'center', alignItems: 'center' },
+  projectLogoWrap: { backgroundColor: '#fff', borderRadius: 16, padding: 16, shadowColor: '#000', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.3, shadowRadius: 16, elevation: 10 },
+  projectLogo: { width: 140, height: 60 },
+  casoBadge: { position: 'absolute', top: 12, left: 12, backgroundColor: '#fff', borderRadius: 20, paddingHorizontal: 10, paddingVertical: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 4 },
+  casoBadgeText: { color: '#10b981', fontSize: 10, fontWeight: '900', letterSpacing: 0.5 },
+  projectBody: { padding: 16, gap: 8 },
+  categoryBadge: { alignSelf: 'flex-start', borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4 },
+  categoryText: { fontSize: 11, fontWeight: '700' },
+  projectTitle: { color: '#f8fafc', fontSize: 18, fontWeight: '800', letterSpacing: -0.3 },
+  projectDesc: { color: '#64748b', fontSize: 13, lineHeight: 20 },
+  featureList: { gap: 6 },
+  featureRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  featureText: { color: '#94a3b8', fontSize: 13, flex: 1 },
+  metricsRow: { flexDirection: 'row', gap: 8, paddingTop: 12, borderTopWidth: 1, borderTopColor: '#1e293b', marginTop: 4 },
+  metricBox: { flex: 1, alignItems: 'center', backgroundColor: '#080f1e', borderRadius: 10, paddingVertical: 10 },
+  metricValue: { fontSize: 16, fontWeight: '900' },
+  metricLabel: { color: '#475569', fontSize: 10, fontWeight: '600', marginTop: 3, textAlign: 'center' },
 
   // Plans
-  planCard: { backgroundColor: '#0f172a', borderRadius: 16, padding: 20, borderWidth: 1, borderColor: '#1e293b', gap: 0 },
+  planCard: { backgroundColor: '#0f172a', borderRadius: 16, padding: 20, borderWidth: 1, borderColor: '#1e293b' },
   planPopular: { borderColor: '#10b981', borderWidth: 2 },
   popularStrip: { flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: '#10b981', borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, alignSelf: 'flex-start', marginBottom: 14 },
   popularText: { color: '#0f172a', fontSize: 11, fontWeight: '800' },
@@ -349,21 +426,17 @@ const styles = StyleSheet.create({
   planMonthly: { color: '#94a3b8', fontSize: 15, fontWeight: '700' },
   planMonthlyLabel: { color: '#475569', fontSize: 13 },
   planDivider: { height: 1, backgroundColor: '#1e293b', marginBottom: 14 },
-  featureList: { gap: 8, marginBottom: 16 },
-  featureRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  featureText: { color: '#94a3b8', fontSize: 13, flex: 1 },
+  planFeatureList: { gap: 8, marginBottom: 16 },
   planBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, borderWidth: 1, borderColor: '#1e293b', borderRadius: 12, padding: 13, backgroundColor: '#080f1e' },
   planBtnPopular: { backgroundColor: '#10b981', borderColor: '#10b981', shadowColor: '#10b981', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.25, shadowRadius: 10, elevation: 6 },
   planBtnText: { color: '#64748b', fontWeight: '700', fontSize: 14 },
   planBtnTextPopular: { color: '#fff' },
 
-  // CTA
   cta: { margin: 20, marginTop: 32, backgroundColor: '#0f172a', borderRadius: 20, padding: 28, alignItems: 'center', borderWidth: 1, borderColor: '#10b98130', gap: 10 },
   ctaIconWrap: { width: 60, height: 60, backgroundColor: '#10b98115', borderRadius: 30, alignItems: 'center', justifyContent: 'center', marginBottom: 4 },
   ctaTitle: { color: '#f8fafc', fontSize: 22, fontWeight: '800', letterSpacing: -0.3 },
   ctaSub: { color: '#475569', fontSize: 14, textAlign: 'center', lineHeight: 22 },
 
-  // Footer
   footer: { paddingHorizontal: 20, paddingTop: 8, gap: 6, alignItems: 'center' },
   footerDivider: { width: 40, height: 1, backgroundColor: '#1e293b', marginBottom: 12 },
   footerBrand: { color: '#10b981', fontSize: 13, fontWeight: '700' },
