@@ -40,12 +40,16 @@ jobs:
           path: android/app/build/outputs/apk/release/app-release-unsigned.apk
           retention-days: 30
 
+      - name: Find APK
+        run: find android/app/build/outputs/apk -name "*.apk" | head -5
+
       - name: Publish APK to web repo
         env:
           REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
+          APK=$(find android/app/build/outputs/apk -name "*.apk" | head -1)
           git clone https://x-access-token:${REPO_TOKEN}@github.com/juangcyc-max/mi-portfolio-ia.git web-repo
-          cp android/app/build/outputs/apk/release/app-release-unsigned.apk web-repo/public/downloads/mindbridge.apk
+          cp "$APK" web-repo/public/downloads/mindbridge.apk
           cd web-repo
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
