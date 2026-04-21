@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   View, Text, StyleSheet, TextInput, TouchableOpacity,
-  FlatList, KeyboardAvoidingView, Platform, ActivityIndicator,
+  FlatList, KeyboardAvoidingView, Platform, ActivityIndicator, Image,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -115,7 +115,7 @@ export default function Chat() {
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <View style={styles.headerLeft}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>M</Text>
+            <Image source={require('../../assets/icon.png')} style={styles.avatarImg} />
             <View style={styles.onlineDot} />
           </View>
           <View>
@@ -228,8 +228,8 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0f172a' },
   header: { backgroundColor: '#0f172a', borderBottomWidth: 1, borderBottomColor: '#1e293b', paddingHorizontal: 16, paddingBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   headerLeft: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  avatar: { width: 40, height: 40, backgroundColor: '#10b981', borderRadius: 20, alignItems: 'center', justifyContent: 'center', position: 'relative' },
-  avatarText: { color: '#fff', fontWeight: '800', fontSize: 16 },
+  avatar: { width: 40, height: 40, borderRadius: 20, overflow: 'hidden', position: 'relative' },
+  avatarImg: { width: 40, height: 40, borderRadius: 20 },
   onlineDot: { position: 'absolute', bottom: 0, right: 0, width: 11, height: 11, backgroundColor: '#10b981', borderRadius: 6, borderWidth: 2, borderColor: '#0f172a' },
   headerTitle: { color: '#f8fafc', fontWeight: '700', fontSize: 15 },
   headerSub: { color: '#10b981', fontSize: 11, fontWeight: '600' },

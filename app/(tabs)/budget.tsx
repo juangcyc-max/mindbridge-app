@@ -45,10 +45,10 @@ export default function Budget() {
           form.addons.length > 0 ? `Extras deseados: ${form.addons.join(', ')}` : '',
         ].filter(Boolean).join('\n\n'),
       };
-      const res = await fetch('https://mindbride.net/api/contact', {
+      const res = await fetch('https://mindbride.net/api/budget-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...body, message: `Solicitud de presupuesto:\nTipo: ${form.project_type || 'No especificado'}\nPresupuesto: ${form.budget_range || 'No especificado'}\nPlazo: ${form.timeline || 'No especificado'}\n\n${body.additional_info}` }),
+        body: JSON.stringify(body),
       });
       if (res.ok) setSent(true);
       else Alert.alert('Error', 'No se pudo enviar. Inténtalo de nuevo.');
