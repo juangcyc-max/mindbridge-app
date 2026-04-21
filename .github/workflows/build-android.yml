@@ -33,9 +33,22 @@ jobs:
       - name: Build APK
         run: cd android && ./gradlew assembleRelease --no-daemon
 
-      - name: Upload APK
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: mindbridge.apk
           path: android/app/build/outputs/apk/release/app-release-unsigned.apk
           retention-days: 30
+
+      - name: Publish APK to web repo
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+        run: |
+          git clone https://x-access-token:${REPO_TOKEN}@github.com/juangcyc-max/mi-portfolio-ia.git web-repo
+          cp android/app/build/outputs/apk/release/app-release-unsigned.apk web-repo/public/downloads/mindbridge.apk
+          cd web-repo
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          git add public/downloads/mindbridge.apk
+          git commit -m "chore: update mindbridge.apk [skip ci]"
+          git push
