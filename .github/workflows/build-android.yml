@@ -51,8 +51,8 @@ jobs:
           git clone https://x-access-token:${REPO_TOKEN}@github.com/juangcyc-max/mi-portfolio-ia.git web-repo
           cp "$APK" web-repo/public/downloads/mindbridge.apk
           cd web-repo
-          git config user.email "github-actions@github.com"
-          git config user.name "GitHub Actions"
+          git config user.email "juangcyc@gmail.com"
+          git config user.name "juangcyc-max"
           git add public/downloads/mindbridge.apk
           git commit -m "chore: update mindbridge.apk [skip ci]"
           git push
