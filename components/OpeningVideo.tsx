@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { StyleSheet, Animated } from 'react-native';
 import { useVideoPlayer, VideoView } from 'expo-video';
 
 export default function OpeningVideo({ onDone }: { onDone: () => void }) {
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const [active, setActive] = useState(true);
 
-  const player = useVideoPlayer(require('../assets/videoopen.mp4'), p => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const player = useVideoPlayer(require('../assets/videoopen.mp4'), (p: any) => {
     p.muted = true;
     p.loop = false;
+    p.showNowPlayingNotification = false;
     p.play();
   });
 
