@@ -65,6 +65,18 @@ const PROJECTS = [
     url: 'https://mindbride.net/portfolio/landing',
     metrics: [{ label: 'Conversión', value: '12.5%' }, { label: 'CAC', value: '-35%' }, { label: 'Leads', value: '+200%' }],
   },
+  {
+    title: 'Blockself',
+    category: 'WEB + DISEÑO',
+    badge: true,
+    desc: 'Web moderna con identidad de marca, diseño a medida y optimización para conversión.',
+    features: ['Diseño a medida', 'Responsive', 'SEO incluido'],
+    color: '#06b6d4',
+    bg: '#0891b2',
+    logo: require('../../assets/blockself.png'),
+    url: 'https://blockself.net',
+    metrics: [{ label: 'Valoración', value: '5★' }, { label: 'Entrega', value: '15 días' }, { label: 'Online', value: '100%' }],
+  },
 ];
 
 const REVIEWS = [
